@@ -1,10 +1,10 @@
-package com.codding_challenge.project_management_api;
+package com.codingchallenge.projectmanagementapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjectManagementApiApplicationTests {
+class ProjectmanagementapiApplicationTests {
 
 	@Test
 	void contextLoads() {

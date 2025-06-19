@@ -1,13 +1,13 @@
-package com.codding_challenge.project_management_api;
+package com.codingchallenge.projectmanagementapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProjectManagementApiApplication {
+public class ProjectmanagementapiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjectManagementApiApplication.class, args);
+		SpringApplication.run(ProjectmanagementapiApplication.class, args);
 	}
 
 }
