@@ -1,0 +1,12 @@
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/ProjectmanagementapiApplication.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/ProjectController.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/TaskController.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/Project.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/Task.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/enums/ProjectStatus.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/enums/TaskPriority.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/enums/TaskStatus.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/repository/ProjectRepository.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/repository/TaskRepository.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/service/ProjectService.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/service/TaskService.java

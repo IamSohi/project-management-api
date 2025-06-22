@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: sukhveer
+      POSTGRES_PASSWORD: bitsql
+      POSTGRES_DB: project-mn-db
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+
+  # Spring Boot application service
+  app:
+    image: project-management-api-app # pre-built Spring Boot image
+    container_name: project-management-api-app-container
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/project-mn-db
+      SPRING_DATASOURCE_USERNAME: sukhveer
+      SPRING_DATASOURCE_PASSWORD: bitsql
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+# Define the network to connect the containers
+networks:
+  app-network:
+    driver: bridge
+
+# Define a volume to persist PostgreSQL data
+volumes:
+  pgdata:
+    driver: local
+

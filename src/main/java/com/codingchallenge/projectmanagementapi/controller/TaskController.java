@@ -4,6 +4,7 @@ import com.codingchallenge.projectmanagementapi.model.Task;
 import com.codingchallenge.projectmanagementapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,9 +41,10 @@ public class TaskController {
         service.deleteTask(id);
     }
 
-//    @GetMapping("/with-projects")
-//    public List<Task> getAllWithProjectInfo(){
-//        service.
-//    }
+
+    @GetMapping("/with-projects")
+    public ResponseEntity<List<Task>> getAllTasksWithProjects() {
+        return ResponseEntity.ok(service.getAllTasksWithProjects());
+    }
 
 }

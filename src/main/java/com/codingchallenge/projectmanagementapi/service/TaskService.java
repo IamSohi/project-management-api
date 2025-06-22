@@ -21,6 +21,8 @@ public class TaskService {
         this.projectRepository = projectRepository;
     }
 
+
+
     public List<Task> getAllTasks(){
         return taskRepository.findAll();
     }
@@ -56,8 +58,14 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public List<Task> getTasksForProject(Long projectId){
+    public List<Task> getTasksByProjectId(Long projectId) {
+        if (!projectRepository.existsById(projectId)) {
+            throw new EntityNotFoundException("Project with id " + projectId + " not found.");
+        }
         return taskRepository.findByProjectId(projectId);
     }
 
+    public List<Task> getAllTasksWithProjects() {
+        return taskRepository.findAllWithProject(); // custom @Query with JOIN FETCH
+    }
 }

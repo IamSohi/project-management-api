@@ -1,0 +1,12 @@
+com/codingchallenge/projectmanagementapi/model/enums/TaskPriority.class
+com/codingchallenge/projectmanagementapi/model/enums/TaskStatus.class
+com/codingchallenge/projectmanagementapi/model/Project.class
+com/codingchallenge/projectmanagementapi/controller/TaskController.class
+com/codingchallenge/projectmanagementapi/repository/ProjectRepository.class
+com/codingchallenge/projectmanagementapi/service/ProjectService.class
+com/codingchallenge/projectmanagementapi/model/Task.class
+com/codingchallenge/projectmanagementapi/repository/TaskRepository.class
+com/codingchallenge/projectmanagementapi/model/enums/ProjectStatus.class
+com/codingchallenge/projectmanagementapi/controller/ProjectController.class
+com/codingchallenge/projectmanagementapi/ProjectmanagementapiApplication.class
+com/codingchallenge/projectmanagementapi/service/TaskService.class
