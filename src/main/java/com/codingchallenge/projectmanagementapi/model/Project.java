@@ -1,6 +1,7 @@
 package com.codingchallenge.projectmanagementapi.model;
 
 import com.codingchallenge.projectmanagementapi.model.enums.ProjectStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class Project {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+//    @JsonManagedReference
     private List<Task> tasks = new ArrayList<>();
 
 }
