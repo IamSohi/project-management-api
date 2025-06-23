@@ -14,38 +14,43 @@ The application can be run in a containerized environment using Docker Compose. 
 2. **Navigate to the Root Folder**  
    Open a terminal in the root folder that contains the `Dockerfile` and `docker-compose.yml`.
 
-3. **Build the Docker Image**  
+   **(Optional)** Although the repo already contains the latest build(.jar). But if required, the new .jar file can be build running `mvn clean package` from the root folder.
+   Note: Make sure the database is up and running for the build to succeed.
+   
+4. **Build the Docker Image**  
    Run the following command to build the Docker image:
 
    ```bash
    docker build -t project-management-api-app .
 
-4. **Start the Containers**
+5. **Start the Containers**
    Start the containers using Docker Compose:
    ```bash
       docker-compose up --build
 
-5. **Endpoints**
+6. **Endpoints**
    If the setup is successful, the following services will be available:
    
    Database: `localhost:5435`
    
    Web Server: `localhost:8082`
 
-6. **Database Access**
+7. **Database Access**
    
     Database: PostgreSQL
 
     Admin Tool: PgAdmin (recommended)
     
     Credentials:
+
+    Database name: `project-mn-db`
     
     Username: `sukhveer`
     
     Password: `bitsql`
 
-7. **Insert Test Data**
-   Once inside PgAdmin, you can run the following SQL script to insert sample data into the database.
+9. **Insert Test Data**
+   Once inside PgAdmin, you can run the following SQL script to insert sample data into the database. It also resync the sequence to match the max ID after data insertion.
    Note: Table creation is automatically handled by Spring Boot JPA.
 ```sql
 INSERT INTO Project (id, name, description, status, created_at, updated_at)
@@ -68,6 +73,9 @@ VALUES
 (7, 4, 'Task 1: Requirements Gathering', 'Gather requirements for the new system update.', 'PENDING', 'LOW', '2025-04-10 13:00:00', '2025-04-10 13:30:00'),
 (8, 5, 'Task 1: Design Branding Assets', 'Design new logo and branding elements.', 'IN_PROGRESS', 'HIGH', '2025-06-05 14:00:00', '2025-06-05 14:30:00'),
 (9, 5, 'Task 2: Internal Communication', 'Develop internal communication strategy for rebranding.', 'PENDING', 'MEDIUM', '2025-06-06 09:00:00', '2025-06-06 09:15:00');
+
+SELECT setval('project_id_seq', (SELECT MAX(id) FROM project));
+SELECT setval('task_id_seq', (SELECT MAX(id) FROM task));
 ```
 
 ---
