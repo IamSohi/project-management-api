@@ -357,5 +357,5 @@ Porject is structure using Layered Architecture as follow:
 ## Other Resources
 
 [▶️ Tutorial for learning SpringBoot](https://www.youtube.com/watch?v=-Fe0zk-F4OA)
-[To Initialize the project](https://start.spring.io/)
 
+[To Initialize the project](https://start.spring.io/)
