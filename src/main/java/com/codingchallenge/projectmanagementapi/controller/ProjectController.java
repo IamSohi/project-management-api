@@ -2,10 +2,8 @@ package com.codingchallenge.projectmanagementapi.controller;
 
 
 import com.codingchallenge.projectmanagementapi.dto.ProjectWithTaskIdsDTO;
-import com.codingchallenge.projectmanagementapi.exception.ResourceNotFoundException;
 import com.codingchallenge.projectmanagementapi.model.Project;
 import com.codingchallenge.projectmanagementapi.model.Task;
-import com.codingchallenge.projectmanagementapi.repository.ProjectRepository;
 import com.codingchallenge.projectmanagementapi.service.ProjectService;
 import com.codingchallenge.projectmanagementapi.service.TaskService;
 import jakarta.validation.Valid;
@@ -14,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

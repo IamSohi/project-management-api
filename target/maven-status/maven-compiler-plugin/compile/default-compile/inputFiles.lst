@@ -1,6 +1,11 @@
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/ProjectmanagementapiApplication.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/ProjectController.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/TaskController.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/ProjectInfoDTO.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/ProjectWithTaskIdsDTO.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/TaskWithProjectDTO.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/exception/GlobalExceptionHandler.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/exception/ResourceNotFoundException.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/Project.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/Task.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/enums/ProjectStatus.java
