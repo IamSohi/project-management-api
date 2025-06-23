@@ -360,6 +360,7 @@ Porject is structure using Layered Architecture as follow:
 ## Further Development
 - A custom error can be returned for each data field to better direct the user right input
 - SpringDoc OpenAPI can be made more useful by adding test data examples
+- The Enum types (i.e: ProjectStatus, TaskStatus, TaskPriority) only allow uppercase values. The input values can be make case-insensitive using @JsonCreator annotation. So that it handle lower case values as well.
 
 ## Other Resources
 
