@@ -1,4 +1,5 @@
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/ProjectmanagementapiApplication.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/HomeController.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/ProjectController.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/controller/TaskController.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/ProjectInfoDTO.java
