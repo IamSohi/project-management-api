@@ -39,7 +39,7 @@ public class TaskService {
     public Task createTask(Task task){
         Long projectId = task.getProject().getId();
         Project project = projectRepository.findById(projectId)
-                .orElseThrow(()-> new EntityNotFoundException(("Project not found")));
+                .orElseThrow(()-> new ResourceNotFoundException("Project with id " + projectId + " not found."));
         task.setProject(project);
         task.setCreatedAt(LocalDateTime.now());
         task.setUpdatedAt(LocalDateTime.now());
