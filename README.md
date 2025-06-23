@@ -1,10 +1,6 @@
-# project-management-api
+# Project Management API
 
 Java SpringBoot based backend api to manages projects and their associated tasks
-
-
-
-# Project Management API
 
 ## Setup Instructions
 
@@ -52,7 +48,7 @@ The application can be run in a containerized environment using Docker Compose. 
     Once inside PgAdmin, you can run the following SQL script to insert sample data into the database.
     Note: Table creation is automatically handled by Spring Boot JPA.
 
-```
+```sql
 INSERT INTO Projects (id, name, description, status, createdat, updated_at)
 VALUES
 (1, 'Project Alpha', 'A new product development project for Q3.', 'active', '2025-06-01 08:00:00', '2025-06-01 08:30:00'),
@@ -61,7 +57,7 @@ VALUES
 (4, 'Project Delta', 'Company-wide internal system upgrade.', 'on_hold', '2025-04-10 12:00:00', '2025-04-12 16:00:00'),
 (5, 'Project Epsilon', 'Internal rebranding project for the marketing team.', 'active', '2025-06-05 13:00:00', '2025-06-05 13:30:00');
 ```
-```
+```sql
 INSERT INTO Tasks (id, project_id, title, description, status, priority, created_at, updated_at)
 VALUES
 (1, 1, 'Task 1: Market Research', 'Research on current market trends for the product.', 'in_progress', 'high', '2025-06-01 09:00:00', '2025-06-01 09:30:00'),
@@ -78,137 +74,273 @@ VALUES
 ---
 
 ## Database Schema
-PostgreSQL is used to store data for Projects and tasks. Given Below is the ER Diagram and relational schema.
+The database schema is managed via **Spring Data JPA and Hibernate**, which automatically generates the required tables based on entity classes. For reference or manual setup, below is the raw SQL equivalent of the schema:
+
+### ER Diagram
+![App Screenshot](assets/er_digram.png)
 
 ### Schema
 Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
-
--- Creating the Projects table
-CREATE TABLE projects (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    status ENUM('planning', 'active', 'completed', 'on_hold') NOT NULL,
-    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
--- Creating the Tasks table
-CREATE TABLE tasks (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    project_id INT,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    status ENUM('pending', 'in_progress', 'completed') NOT NULL,
-    priority ENUM('low', 'medium', 'high') NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
-);
+   ```sql
+   -- Creating the Projects table
+   CREATE TABLE projects (
+       id INT PRIMARY KEY AUTO_INCREMENT,
+       name VARCHAR(255) NOT NULL,
+       description TEXT,
+       status ENUM('planning', 'active', 'completed', 'on_hold') NOT NULL,
+       createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+   );
+   
+   -- Creating the Tasks table
+   CREATE TABLE tasks (
+       id INT PRIMARY KEY AUTO_INCREMENT,
+       project_id INT,
+       title VARCHAR(255) NOT NULL,
+       description TEXT,
+       status ENUM('pending', 'in_progress', 'completed') NOT NULL,
+       priority ENUM('low', 'medium', 'high') NOT NULL,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+       FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+   );
+```
 
 
 ## API Documentation
 
 ### Project Endpoints
 
-#### **GET /api/projects**
+### **GET /api/projects**
 - **Description**: Get all projects.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: List of projects.
+      ```json
+      [
+        {
+          "id": 1,
+          "name": "Project Alpha",
+          "description": "A new product development project for Q3.",
+          "status": "active",
+          "createdAt": "2025-06-01T08:00:00",
+          "updatedAt": "2025-06-01T08:30:00"
+        },
+        {
+          "id": 2,
+          "name": "Project Beta",
+          "description": "Research and development of a new mobile app.",
+          "status": "planning",
+          "createdAt": "2025-05-20T09:00:00",
+          "updatedAt": "2025-06-10T11:00:00"
+        },
+        ...
+      ]
+      ```
 
-#### **GET /api/projects/:id**
+### **GET /api/projects/:id**
 - **Description**: Get project by ID.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: Single project object.
+      ```json
+         {
+        "id": 3,
+        "name": "Project Gamma",
+        "description": "Update the company website with new features.",
+        "status": "completed",
+        "createdAt": "2025-03-15T10:00:00",
+        "updatedAt": "2025-05-10T14:00:00"
+      }
+      ```
+    - **Error Code**: `404 Not Found` (If project not found)
 
-#### **POST /api/projects**
+### **POST /api/projects**
 - **Description**: Create a new project.
-- **Body**:
+- **Body**: 
+    ```json
+    {
+     "name": "Project Zeta",
+     "description": "A new AI research initiative.",
+     "status": "planning"
+    }
+    ```
 - **Response**:
-      
-#### **PUT /api/projects/:id**
+    - **Status Code**: `201 Created`
+    - **Body**: Created project object.
+    - **Error Code**: `400 Bad Request` (If validation fails)
+
+### **PUT /api/projects/:id**
 - **Description**: Update an existing project by ID.
 - **Body**: 
+    ```json
+    {
+     "name": "Project Alpha - Revamped",
+     "description": "Updated scope for Q3 launch.",
+     "status": "active"
+   }
+    ```
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: Updated project object.
+    - **Error Code**: `404 Not Found` (If project not found)
 
-#### **DELETE /api/projects/:id**
+### **DELETE /api/projects/:id**
 - **Description**: Delete a project by ID.
 - **Response**:
+    - **Status Code**: `204 No Content`
+    - **Error Code**: `404 Not Found` (If project not found)
 
 ---
 
-### Task Endpoints
+## Task Endpoints
 
-#### **GET /api/tasks**
+### **GET /api/tasks**
 - **Description**: Get all tasks.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: List of tasks.
+      ```json
+      [
+        {
+          "id": 1,
+          "projectId": 1,
+          "title": "Task 1: Market Research",
+          "description": "Research on current market trends for the product.",
+          "status": "in_progress",
+          "priority": "high",
+          "createdAt": "2025-06-01T09:00:00",
+          "updatedAt": "2025-06-01T09:30:00"
+        },
+        ...
+      ]
+      ```
 
-#### **GET /api/tasks/:id**
+### **GET /api/tasks/:id**
 - **Description**: Get task by ID.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: Single task object.
+      ```json
+      {
+        "id": 5,
+        "projectId": 3,
+        "title": "Task 1: Redesign Homepage",
+        "description": "Redesign homepage UI to improve user engagement.",
+        "status": "completed",
+        "priority": "high",
+        "createdAt": "2025-03-16T11:00:00",
+        "updatedAt": "2025-03-17T12:00:00"
+      }
+      ```
+    - **Error Code**: `404 Not Found` (If task not found)
 
-#### **POST /api/tasks**
+### **POST /api/tasks**
 - **Description**: Create a new task.
 - **Body**: 
+    ```json
+    {
+     "projectId": 2,
+     "title": "Task 3: UX Testing",
+     "description": "Conduct user testing for core features.",
+     "status": "pending",
+     "priority": "medium"
+   }
+    ```
 - **Response**:
+    - **Status Code**: `201 Created`
+    - **Body**: Created task object.
+    - **Error Code**: `400 Bad Request` (If validation fails)
 
-#### **PUT /api/tasks/:id**
+### **PUT /api/tasks/:id**
 - **Description**: Update a task by ID.
 - **Body**: 
+    ```json
+    {
+        "title": "UX Testing",
+        "status": "completed",
+        "priority": "high"
+    }
+    ```
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: Updated task object.
+    - **Error Code**: `404 Not Found` (If task not found)
 
-#### **DELETE /api/tasks/:id**
+### **DELETE /api/tasks/:id**
 - **Description**: Delete a task by ID.
 - **Response**:
+    - **Status Code**: `204 No Content`
+    - **Error Code**: `404 Not Found` (If task not found)
 
 ---
 
-### Additional Endpoints
+## Additional Endpoints
 
-#### **GET /api/projects/:id/tasks**
+### **GET /api/projects/:id/tasks**
 - **Description**: Get all tasks for a specific project.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: List of tasks for the project.
+    - **Error Code**: `404 Not Found` (If project not found)
 
-#### **GET /api/projects/with-tasks**
+### **GET /api/projects/with-tasks**
 - **Description**: Get all projects with their tasks.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: List of projects with nested tasks.
 
-#### **GET /api/tasks/with-projects**
+### **GET /api/tasks/with-projects**
 - **Description**: Get all tasks with project info.
 - **Response**:
+    - **Status Code**: `200 OK`
+    - **Body**: List of tasks with associated project info.
 
+---
+
+  
 
 ## Structure
 
 Porject is structure using Layered Architecture as follow:
 
 - **Controller:**
-  Act as an entry point for HTTP requests. Handles routing, request mapping and calls the appropriate service layer.
+     - Act as an entry point for HTTP requests. Handles routing, request mapping and calls the appropriate service layer.
   
 - **Service:**
-  Contains the business logic of the application. Processes data, applies business rules, and manages transactions.
+     - Contains the business logic of the application. Processes data, applies business rules, and manages transactions.
   
 - **Repository:**
-  Manages database interactions. Responsible for CRUD (Create, Read, Update, Delete) operations and querying the database.
+     - Manages database interactions. Responsible for CRUD (Create, Read, Update, Delete) operations and querying the database.
   
 - **Model:**
-  Represent the structure of the Data. Encapsulates the data and the business logic that belongs to the data
+     - Represent the structure of the Data. Encapsulates the data and the business logic that belongs to the data
+- **Exception Handling and DTO:**
+     - Exceptions are handled in one place using a class called GlobalExceptionHandler.java. This helps catch and manage errors across the whole application in a consistent way.
+  DTO is used to prevent circular JSON serialization errors in join queries
 
 
 ## Dependencies
 
 - **Lombok Developer Tools**
-  reduce boilerplate code
+     - reduce boilerplate code
 - **Spring Boot DevTools Developer Tools**
-  Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
+     - Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
 - **Spring Data JPA SQL**
-  Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
+     - Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
 - **Spring Web**
-  Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
+     - Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container.
 - **Validation I/O**
-  Bean Validation with Hibernate validator.
+     - Bean Validation with Hibernate validator.
 - **H2 Database SQL**
-  Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
+     - Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
 - **SpringDoc OpenAPI Starter WebMVC UI**
-  API Documentation using OpenAPI standards
+     - API Documentation using OpenAPI standards. Available at: `/swagger-ui/index.html#/`
+
+
+## Further Development
+- A custom error can be returned for each data field to better direct the user right input
+- SpringDoc OpenAPI can be made more useful by adding test data examples
 
 ## Other Resources
 
