@@ -4,6 +4,7 @@
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/ProjectInfoDTO.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/ProjectWithTaskIdsDTO.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/dto/TaskWithProjectDTO.java
+/Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/exception/BadRequestException.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/exception/GlobalExceptionHandler.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/exception/ResourceNotFoundException.java
 /Users/home/Desktop/gtpprojects/coding-challenge/src/main/java/com/codingchallenge/projectmanagementapi/model/Project.java

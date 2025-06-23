@@ -13,5 +13,6 @@ com/codingchallenge/projectmanagementapi/controller/ProjectController.class
 com/codingchallenge/projectmanagementapi/exception/GlobalExceptionHandler.class
 com/codingchallenge/projectmanagementapi/ProjectmanagementapiApplication.class
 com/codingchallenge/projectmanagementapi/service/TaskService.class
+com/codingchallenge/projectmanagementapi/exception/BadRequestException.class
 com/codingchallenge/projectmanagementapi/exception/ResourceNotFoundException.class
 com/codingchallenge/projectmanagementapi/dto/TaskWithProjectDTO.class
