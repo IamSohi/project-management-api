@@ -18,16 +18,22 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public ResponseEntity<List<ProjectWithTaskIdsDTO>> getAllProjects() {
+    public List<ProjectWithTaskIdsDTO> getAllProjects() {
 
         List<Project> projects = projectRepository.findAll();
-        List<ProjectWithTaskIdsDTO> dtoList = projects.stream()
+        return projects.stream()
                 .map(ProjectWithTaskIdsDTO::new)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(dtoList);
     }
 
-    public Project getProjectById(Long id) {
+    public ProjectWithTaskIdsDTO getProjectById(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Project with ID " + id + " not found"));
+
+        return new ProjectWithTaskIdsDTO(project);
+    }
+
+    private Project findProjectEntityById(Long id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Project with ID " + id + " not found"));
     }
@@ -38,17 +44,18 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public Project updateProject(Long id, Project updatedProject) {
-        Project existingProject = getProjectById(id);
+    public ProjectWithTaskIdsDTO updateProject(Long id, Project updatedProject) {
+        Project existingProject = findProjectEntityById(id);
         existingProject.setName(updatedProject.getName());
         existingProject.setDescription(updatedProject.getDescription());
         existingProject.setStatus(updatedProject.getStatus());
         existingProject.setUpdatedAt(LocalDateTime.now());
-        return projectRepository.save(existingProject);
+        Project savedProject = projectRepository.save(existingProject);
+        return new ProjectWithTaskIdsDTO(savedProject);
     }
 
     public void deleteProjectById(Long id) {
-        Project existing = getProjectById(id);
+        Project existing = findProjectEntityById(id);
         projectRepository.delete(existing);
     }
 

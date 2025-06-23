@@ -1,6 +1,7 @@
 package com.codingchallenge.projectmanagementapi.dto;
 
 import com.codingchallenge.projectmanagementapi.model.Task;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,9 @@ public class TaskWithProjectDTO {
     private String description;
     private String status;
     private String priority;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     private ProjectInfoDTO project;
 

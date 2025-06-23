@@ -1,6 +1,7 @@
 package com.codingchallenge.projectmanagementapi.service;
 
 import com.codingchallenge.projectmanagementapi.dto.TaskWithProjectDTO;
+import com.codingchallenge.projectmanagementapi.exception.BadRequestException;
 import com.codingchallenge.projectmanagementapi.exception.ResourceNotFoundException;
 import com.codingchallenge.projectmanagementapi.model.Project;
 import com.codingchallenge.projectmanagementapi.model.Task;
@@ -37,6 +38,9 @@ public class TaskService {
     }
 
     public Task createTask(Task task){
+        if (task.getProject() == null || task.getProject().getId() == null) {
+            throw new BadRequestException("Missing required field: project_id");
+        }
         Long projectId = task.getProject().getId();
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(()-> new ResourceNotFoundException("Project with id " + projectId + " not found."));
@@ -60,7 +64,8 @@ public class TaskService {
     }
 
     public void deleteTask(Long id){
-        taskRepository.deleteById(id);
+        Task existing = getTaskById(id);
+        taskRepository.delete(existing);
     }
 
     public List<Task> getTasksByProjectId(Long projectId) {

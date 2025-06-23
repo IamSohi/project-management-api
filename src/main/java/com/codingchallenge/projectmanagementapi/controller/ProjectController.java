@@ -24,13 +24,12 @@ public class ProjectController {
 
     @GetMapping
     public ResponseEntity<List<ProjectWithTaskIdsDTO>> getAllProjects() {
-        return service.getAllProjects();
+        return ResponseEntity.ok(service.getAllProjects());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
-        Project project = service.getProjectById(id);
-        return ResponseEntity.ok(project);
+    public ResponseEntity<ProjectWithTaskIdsDTO>  getProjectById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProjectById(id));
     }
 
     @PostMapping
@@ -40,9 +39,8 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Project> update(@PathVariable Long id, @RequestBody @Valid Project updatedProject) {
-        Project updated = service.updateProject(id, updatedProject);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<ProjectWithTaskIdsDTO> update(@PathVariable Long id, @RequestBody @Valid Project updatedProject) {
+        return ResponseEntity.ok(service.updateProject(id, updatedProject));
     }
 
     @DeleteMapping("/{id}")
