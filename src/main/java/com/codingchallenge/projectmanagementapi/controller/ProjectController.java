@@ -1,6 +1,8 @@
 package com.codingchallenge.projectmanagementapi.controller;
 
 
+import com.codingchallenge.projectmanagementapi.dto.ProjectWithTaskIdsDTO;
+import com.codingchallenge.projectmanagementapi.exception.ResourceNotFoundException;
 import com.codingchallenge.projectmanagementapi.model.Project;
 import com.codingchallenge.projectmanagementapi.model.Task;
 import com.codingchallenge.projectmanagementapi.repository.ProjectRepository;
@@ -24,23 +26,33 @@ public class ProjectController {
     private TaskService taskService;
 
     @GetMapping
-    public List<Project> getAllProjects() { return service.getAllProjects(); }
+    public ResponseEntity<List<ProjectWithTaskIdsDTO>> getAllProjects() {
+        return service.getAllProjects();
+    }
 
     @GetMapping("/{id}")
-    public Project getProjectById(@PathVariable Long id) { return service.getProjectById(id); }
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+        Project project = service.getProjectById(id);
+        return ResponseEntity.ok(project);
+    }
 
     @PostMapping
-    public Project create(@RequestBody @Valid Project project) {
-        return service.createProject(project);
+    public ResponseEntity<Project> create(@RequestBody @Valid Project project) {
+        Project created = service.createProject(project);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public Project update(@PathVariable Long id, @RequestBody Project updatedProject) {
-        return service.updateProject(id, updatedProject);
+    public ResponseEntity<Project> update(@PathVariable Long id, @RequestBody @Valid Project updatedProject) {
+        Project updated = service.updateProject(id, updatedProject);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) { service.deleteProjectById(id); }
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.deleteProjectById(id);
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/with-tasks")
     public ResponseEntity<List<Project>> getAllProjectsWithTasks() {
@@ -49,11 +61,9 @@ public class ProjectController {
 
     @GetMapping("/{id}/tasks")
     public ResponseEntity<List<Task>> getTasksByProjectId(@PathVariable Long id) {
-//        try {
+
             List<Task> tasks = taskService.getTasksByProjectId(id);
             return ResponseEntity.ok(tasks);
-//        } catch (ResourceNotFoundException ex) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
+
     }
 }

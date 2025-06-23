@@ -1,5 +1,7 @@
 package com.codingchallenge.projectmanagementapi.service;
 
+import com.codingchallenge.projectmanagementapi.dto.TaskWithProjectDTO;
+import com.codingchallenge.projectmanagementapi.exception.ResourceNotFoundException;
 import com.codingchallenge.projectmanagementapi.model.Project;
 import com.codingchallenge.projectmanagementapi.model.Task;
 import com.codingchallenge.projectmanagementapi.repository.ProjectRepository;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TaskService {
     @Autowired
@@ -28,7 +32,8 @@ public class TaskService {
     }
 
     public Task getTaskById(Long id){
-        return taskRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Task not found"));
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task with ID " + id + " not found"));
     }
 
     public Task createTask(Task task){
@@ -60,12 +65,15 @@ public class TaskService {
 
     public List<Task> getTasksByProjectId(Long projectId) {
         if (!projectRepository.existsById(projectId)) {
-            throw new EntityNotFoundException("Project with id " + projectId + " not found.");
+            throw new ResourceNotFoundException("Project with id " + projectId + " not found.");
         }
         return taskRepository.findByProjectId(projectId);
     }
 
-    public List<Task> getAllTasksWithProjects() {
-        return taskRepository.findAllWithProject(); // custom @Query with JOIN FETCH
+    public List<TaskWithProjectDTO> getAllTasksWithProjects() {
+        List<Task> tasks = taskRepository.findAllWithProject(); // @Query with JOIN FETCH
+        return tasks.stream()
+                .map(TaskWithProjectDTO::new)
+                .collect(Collectors.toList());
     }
 }

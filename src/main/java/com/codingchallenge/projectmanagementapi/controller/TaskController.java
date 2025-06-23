@@ -1,9 +1,11 @@
 package com.codingchallenge.projectmanagementapi.controller;
 
+import com.codingchallenge.projectmanagementapi.dto.TaskWithProjectDTO;
 import com.codingchallenge.projectmanagementapi.model.Task;
 import com.codingchallenge.projectmanagementapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,33 +19,37 @@ public class TaskController {
     private TaskService service;
 
     @GetMapping
-    public List<Task> getAllTasks(){
-        return service.getAllTasks();
+    public ResponseEntity<List<Task>> getAllTasks(){
+        return ResponseEntity.ok(service.getAllTasks());
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id){
-        return service.getTaskById(id);
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id){
+        Task task = service.getTaskById(id);
+        return ResponseEntity.ok(task);
     }
 
     @PostMapping
-    public Task create(@RequestBody @Valid Task task){
-        return service.createTask(task);
+    public ResponseEntity<Task> create(@RequestBody @Valid Task task){
+        Task created = service.createTask(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public Task update(@PathVariable Long id, @RequestBody Task updatedTask){
-        return service.updateTask(id, updatedTask);
+    public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody @Valid Task updatedTask){
+        Task updated = service.updateTask(id, updatedTask);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
 
 
     @GetMapping("/with-projects")
-    public ResponseEntity<List<Task>> getAllTasksWithProjects() {
+    public ResponseEntity<List<TaskWithProjectDTO>> getAllTasksWithProjects() {
         return ResponseEntity.ok(service.getAllTasksWithProjects());
     }
 
