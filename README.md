@@ -124,7 +124,11 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
           "description": "A new product development project for Q3.",
           "status": "active",
           "createdAt": "2025-06-01T08:00:00",
-          "updatedAt": "2025-06-01T08:30:00"
+          "updatedAt": "2025-06-01T08:30:00",
+          "taskIds": [
+               1,
+               2
+           ]
         },
         {
           "id": 2,
@@ -132,7 +136,11 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
           "description": "Research and development of a new mobile app.",
           "status": "planning",
           "createdAt": "2025-05-20T09:00:00",
-          "updatedAt": "2025-06-10T11:00:00"
+          "updatedAt": "2025-06-10T11:00:00",
+          "taskIds": [
+               1,
+               2
+           ]
         },
         ...
       ]
@@ -148,9 +156,13 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
         "id": 3,
         "name": "Project Gamma",
         "description": "Update the company website with new features.",
-        "status": "completed",
+        "status": "COMPLETED",
         "createdAt": "2025-03-15T10:00:00",
-        "updatedAt": "2025-05-10T14:00:00"
+        "updatedAt": "2025-05-10T14:00:00",
+        "taskIds": [
+               1,
+               2
+           ]
       }
       ```
     - **Error Code**: `404 Not Found` (If project not found)
@@ -162,7 +174,7 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
     {
      "name": "Project Zeta",
      "description": "A new AI research initiative.",
-     "status": "planning"
+     "status": "PLANNING"
     }
     ```
 - **Response**:
@@ -177,7 +189,7 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
     {
      "name": "Project Alpha - Revamped",
      "description": "Updated scope for Q3 launch.",
-     "status": "active"
+     "status": "ACTIVE"
    }
     ```
 - **Response**:
@@ -203,15 +215,14 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
       ```json
       [
         {
-          "id": 1,
-          "projectId": 1,
-          "title": "Task 1: Market Research",
-          "description": "Research on current market trends for the product.",
-          "status": "in_progress",
-          "priority": "high",
-          "createdAt": "2025-06-01T09:00:00",
-          "updatedAt": "2025-06-01T09:30:00"
-        },
+        "id": 1,
+        "title": "Design database schema",
+        "description": null,
+        "status": "PENDING",
+        "priority": "HIGH",
+        "createdAt": "2025-06-23T04:23:34.682834",
+        "updatedAt": "2025-06-23T04:23:34.682834"
+       },
         ...
       ]
       ```
@@ -223,15 +234,14 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
     - **Body**: Single task object.
       ```json
       {
-        "id": 5,
-        "projectId": 3,
-        "title": "Task 1: Redesign Homepage",
-        "description": "Redesign homepage UI to improve user engagement.",
-        "status": "completed",
-        "priority": "high",
-        "createdAt": "2025-03-16T11:00:00",
-        "updatedAt": "2025-03-17T12:00:00"
-      }
+        "id": 1,
+        "title": "Design database schema",
+        "description": null,
+        "status": "PENDING",
+        "priority": "HIGH",
+        "createdAt": "2025-06-23T04:23:34.682834",
+        "updatedAt": "2025-06-23T04:23:34.682834"
+       }
       ```
     - **Error Code**: `404 Not Found` (If task not found)
 
@@ -240,11 +250,13 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
 - **Body**: 
     ```json
     {
-     "projectId": 2,
-     "title": "Task 3: UX Testing",
-     "description": "Conduct user testing for core features.",
-     "status": "pending",
-     "priority": "medium"
+       "title": "Design API structure",
+       "description": "Define routes and HTTP methods for project and task management.",
+       "status": "PENDING",
+       "priority": "HIGH",
+       "project": {
+           "id": 3
+       }
    }
     ```
 - **Response**:
@@ -258,8 +270,8 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
     ```json
     {
         "title": "UX Testing",
-        "status": "completed",
-        "priority": "high"
+        "status": "COMPLETED",
+        "priority": "HIGH"
     }
     ```
 - **Response**:
