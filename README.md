@@ -122,7 +122,7 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
           "id": 1,
           "name": "Project Alpha",
           "description": "A new product development project for Q3.",
-          "status": "active",
+          "status": "ACTIVE",
           "createdAt": "2025-06-01T08:00:00",
           "updatedAt": "2025-06-01T08:30:00",
           "taskIds": [
@@ -134,7 +134,7 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
           "id": 2,
           "name": "Project Beta",
           "description": "Research and development of a new mobile app.",
-          "status": "planning",
+          "status": "PLANNING",
           "createdAt": "2025-05-20T09:00:00",
           "updatedAt": "2025-06-10T11:00:00",
           "taskIds": [
