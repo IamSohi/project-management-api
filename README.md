@@ -45,17 +45,16 @@ The application can be run in a containerized environment using Docker Compose. 
     Password: `bitsql`
 
 7. **Insert Test Data**
-    Table creation is automatically handled by Spring Boot JPA. Further, data.sql will insert some test data inside these tables.
-    Note: if the test data is not in the database somehow. Please run the following SQL script to insert test data into the database.
-
+   Once inside PgAdmin, you can run the following SQL script to insert sample data into the database.
+   Note: Table creation is automatically handled by Spring Boot JPA.
 ```sql
 INSERT INTO Project (id, name, description, status, created_at, updated_at)
 VALUES
-(2, 'Project Alpha', 'A new product development project for Q3.', 'ACTIVE', '2025-06-01 08:00:00', '2025-06-01 08:30:00'),
-(3, 'Project Beta', 'Research and development of a new mobile app.', 'PLANNING', '2025-05-20 09:00:00', '2025-06-10 11:00:00'),
-(4, 'Project Gamma', 'Update the company website with new features.', 'COMPLETED', '2025-03-15 10:00:00', '2025-05-10 14:00:00'),
-(5, 'Project Delta', 'Company-wide internal system upgrade.', 'ON_HOLD', '2025-04-10 12:00:00', '2025-04-12 16:00:00'),
-(6, 'Project Epsilon', 'Internal rebranding project for the marketing team.', 'ACTIVE', '2025-06-05 13:00:00', '2025-06-05 13:30:00');
+(1, 'Project Alpha', 'A new product development project for Q3.', 'ACTIVE', '2025-06-01 08:00:00', '2025-06-01 08:30:00'),
+(2, 'Project Beta', 'Research and development of a new mobile app.', 'PLANNING', '2025-05-20 09:00:00', '2025-06-10 11:00:00'),
+(3, 'Project Gamma', 'Update the company website with new features.', 'COMPLETED', '2025-03-15 10:00:00', '2025-05-10 14:00:00'),
+(4, 'Project Delta', 'Company-wide internal system upgrade.', 'ON_HOLD', '2025-04-10 12:00:00', '2025-04-12 16:00:00'),
+(5, 'Project Epsilon', 'Internal rebranding project for the marketing team.', 'ACTIVE', '2025-06-05 13:00:00', '2025-06-05 13:30:00');
 
 
 INSERT INTO Task (id, project_id, title, description, status, priority, created_at, updated_at)
