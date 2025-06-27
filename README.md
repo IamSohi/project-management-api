@@ -94,19 +94,19 @@ Using JPA/Hibernate to manage the schema. Given below is the raw SQL.
        id INT PRIMARY KEY AUTO_INCREMENT,
        name VARCHAR(255) NOT NULL,
        description TEXT,
-       status ENUM('planning', 'active', 'completed', 'on_hold') NOT NULL,
-       createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       status ENUM('PLANNING', 'ACTIVE', 'COMPLETED', 'ON_HOLD') NOT NULL,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
    );
-   
+
    -- Creating the Tasks table
    CREATE TABLE tasks (
        id INT PRIMARY KEY AUTO_INCREMENT,
        project_id INT,
        title VARCHAR(255) NOT NULL,
        description TEXT,
-       status ENUM('pending', 'in_progress', 'completed') NOT NULL,
-       priority ENUM('low', 'medium', 'high') NOT NULL,
+       status ENUM('PENDING', 'IN_PROGRESS', 'COMPLETED') NOT NULL,
+       priority ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL,
        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
        FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
